@@ -260,13 +260,10 @@ class HBNBCommand(cmd.Cmd):
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage.all().item():
-
             for k, v in storage.all(HBNBCommand.classes[args]).items():
-                    print_list.append(str(v))
+                print_list.append(str(v))
         else:
             for k, v in storage.all().items():
-
                 print_list.append(str(v))
 
         print(print_list)
