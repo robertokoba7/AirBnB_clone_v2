@@ -36,22 +36,8 @@ echo
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 sudo chown -hR ubuntu:ubuntu /data
 
-server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        root /var/www/html;
-        index index.html index.htm index.nginx-debian.html;
-        error_page 404 /404.html;
-        location = /404.html {
-                internal;
-        }
-        location /redirect_me {
-                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-        }
-        location /hbnb_static {
-                alias /data/web_static/current/index.html;
-        }
-}" | sudo tee /etc/nginx/sites-available/default
+sudo sed -i '54i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
+
 
 sudo ln -sf '/etc/nginx/sites-available/default' '/etc/nginx/sites-enabled/default'
 echo -e "\e[1;32m Symbolic link created\e[0m"
