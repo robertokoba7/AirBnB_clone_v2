@@ -22,6 +22,7 @@ def c_is_fun(text):
     """Returns C is fun!"""
     return 'C {}'.format(text)
 
+
 @app.route('/python/', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python_text(text):
