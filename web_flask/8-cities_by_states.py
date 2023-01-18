@@ -10,16 +10,17 @@ app = Flask(__name__)
 
 
 @app.teardown_appcontext
-def teardown_session(exception):
+def close_storage(exception):
     """ Teardown """
     storage.close()
 
 
-@app.route('/cities_by_states', strict_slashes=False)
-def display_html():
+@app.route('/states_list', strict_slashes=False)
+def state_list():
     """ Function called with /states_list route """
-    states = storage.all(State)
-    return render_template('8-cities_by_states.html',
+    states = storage.all(State).values()
+    states = sorted(states, key=lambda state: state.name)
+    return render_template('states_list.html',
                            Table="States",
                            states=states)
 
